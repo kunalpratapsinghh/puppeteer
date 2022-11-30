@@ -1,5 +1,5 @@
 const puppeteer=require("puppeteer")
-
+const pagemap=new Map()
 module.exports.verification=async(req,res)=>{
     const browser = await puppeteer.launch({headless:false});
       try {
@@ -11,8 +11,7 @@ module.exports.verification=async(req,res)=>{
 
         
         await page.screenshot({path:'example1.png'})
-    
-        await browser.close();
+        pagemap.set("page",page)
         return res.status(200).send("sent")
       } catch (error) {
         return res.send("failed")
